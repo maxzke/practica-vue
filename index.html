@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 </head>
+
 <body>
-    <div id="app">
-    <h1>{{ message }}</h1>
+    <div id="app" class="container">
+        <h1>{{ message }}</h1>
         <!-- directiva -->
         <!-- v-text -->
         <h1 v-text="message"></h1>
@@ -22,34 +25,69 @@
         <!-- v-select -->
         <select class="form-select form-select-sm" aria-label="Default select example">
             <option selected>Open this select menu</option>
-            <option v-for="(plato,posicion) in listaPlatos" :key="posicion">id:{{ plato.id}} - Comida {{ plato.nombre}}</option>
+            <option v-for="(plato,posicion) in listaPlatos" :key="posicion">id:{{ plato.id}} - Comida {{ plato.nombre}}
+            </option>
         </select>
+        <button type="button" class="btn btn-sm btn-info mt-3" @click="abrirModal">Modal</button>
+        <span v-text="modalShow"></span>
+        <!-- Modal -->
+        <div class="modal fade" :class="{show:modalShow}" :style="modalShow ? mostrarModal : ocultarModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="abrirModal"></button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" @click="abrirModal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script>
         var app = new Vue({
-            el:'#app',
-            data(){
-                return{
+            el: '#app',
+            data() {
+                return {
                     message: 'Hola Mundo',
-                    opcion:1,
-                    listaPlatos:[
+                    opcion: 1,
+                    modalShow: false,
+                    listaPlatos: [
                         {
-                            id:'01',
+                            id: '01',
                             nombre: 'ceviche',
                         },
                         {
-                            id:'02',
+                            id: '02',
                             nombre: 'milanesa',
                         },
                         {
-                            id:'03',
+                            id: '03',
                             nombre: 'pan',
                         }
-                    ]
+                    ],
+                    mostrarModal: {
+                        display: 'block',
+                        background: 'rgba(0,0,0,0.38)'
+                    },
+                    ocultarModal: {
+                        display: 'none',
+                    }
+                }
+            },
+            methods: {
+                abrirModal() {
+                    this.modalShow = !this.modalShow;
                 }
             }
         })
     </script>
 </body>
+
 </html>
